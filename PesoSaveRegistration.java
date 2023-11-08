@@ -1,8 +1,15 @@
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,9 +18,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 public class PesoSaveRegistration extends JFrame {
@@ -86,6 +95,44 @@ public class PesoSaveRegistration extends JFrame {
         passwordField.setBounds(63, 379, 329, 37);
         passwordField.setColumns(10);
         contentPane.add(passwordField);
+        
+     // Email field validation on focus lost
+        emailTextField.addFocusListener(new FocusAdapter() {
+            public void focusLost(FocusEvent e) {
+                if (!emailTextField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid email address.");
+                }
+            }
+        });
+
+        // Password visibility toggle
+        JLabel lblShowPassword = new JLabel("");
+        lblShowPassword.setBounds(397, 379, 38, 31);
+        lblShowPassword.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Change cursor to hand cursor
+        contentPane.add(lblShowPassword);
+
+        lblShowPassword.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (passwordField.getEchoChar() == '\u0000') {
+                    passwordField.setEchoChar((char) UIManager.get("PasswordField.echoChar")); // Set to default echo character
+                } else {
+                    passwordField.setEchoChar('\u0000'); // Password characters are visible
+                }
+            }
+        });
+
+        // Confirmation before exiting
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int confirmed = JOptionPane.showConfirmDialog(null,
+                        "Do you wish to exit the application?", "Exit Program Message Box",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    dispose();
+                }
+            }
+        });
 		
 		JButton btnSignUp = new JButton(""); 
         btnSignUp.setOpaque(false);
@@ -113,6 +160,10 @@ public class PesoSaveRegistration extends JFrame {
         lblPesoSaveRegister.setIcon(new ImageIcon("D:\\Users\\63916\\Downloads\\PesoSaveRegister.png"));
         lblPesoSaveRegister.setBounds(0, 0, 1280, 770);
         contentPane.add(lblPesoSaveRegister);
+        
+        JLabel lblShowPassword1 = new JLabel("");
+        lblShowPassword1.setBounds(397, 379, 38, 31);
+        contentPane.add(lblShowPassword1);
         
 
         btnLogin.addActionListener(new ActionListener() {
@@ -163,3 +214,6 @@ public class PesoSaveRegistration extends JFrame {
         });
     }
 }
+
+
+
