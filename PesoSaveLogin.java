@@ -14,6 +14,7 @@ public class PesoSaveLogin extends JFrame {
     private JButton btnLogin; // Changed from JLabel to JButton
     private JLabel lblCreateAccount;
     private JLabel lblPesoSaveLogin;
+    private JLabel lblShowPassword;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -31,6 +32,7 @@ public class PesoSaveLogin extends JFrame {
     public PesoSaveLogin() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false); // Make the frame non-resizable
+        
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Calculate the center position
@@ -64,6 +66,28 @@ public class PesoSaveLogin extends JFrame {
         passwordField.setBounds(74, 351, 329, 37);
         passwordField.setColumns(10);
         contentPane.add(passwordField);
+        
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int confirmed = JOptionPane.showConfirmDialog(
+                        PesoSaveLogin.this, 
+                        "Do you wish to exit the application?", 
+                        "Exit Program",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    dispose(); // Close the window and exit the application.
+                } else {
+                	 setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                }
+                
+            }
+        });
+        
+      
+               
+        
 
         btnLogin = new JButton(""); 
         btnLogin.setOpaque(false);
@@ -77,12 +101,15 @@ public class PesoSaveLogin extends JFrame {
                 String usernameOrEmail = usernameOrEmailField.getText();
                 String password = new String(passwordField.getPassword());
 
-                if (authenticateUser(usernameOrEmail, password)) {
-                    openGUIMain();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
+              
+                    // If the email is valid, proceed to authenticate the user
+                    if (authenticateUser(usernameOrEmail, password)) {
+                        openGUIMain();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            }
+            
         });
         
         lblPesoSaveLogin = new JLabel("");
@@ -93,6 +120,20 @@ public class PesoSaveLogin extends JFrame {
         lblCreateAccount = new JLabel(""); // Assuming this is a label and not a button
         lblCreateAccount.setBounds(224, 497, 186, 49);
         contentPane.add(lblCreateAccount);
+        
+        lblShowPassword = new JLabel("");
+        lblShowPassword.setBounds(401, 351, 37, 31);
+        contentPane.add(lblShowPassword);
+        
+        lblShowPassword.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (passwordField.getEchoChar() == (char) 0) {
+                    passwordField.setEchoChar('•');
+                } else {
+                    passwordField.setEchoChar((char) 0);
+                }
+            }
+        });
         
         lblCreateAccount.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
