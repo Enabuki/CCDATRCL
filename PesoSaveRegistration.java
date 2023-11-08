@@ -136,7 +136,7 @@ public class PesoSaveRegistration extends JFrame {
     private void saveToTextFile(String username, String password, String email) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("user_credentials.txt", true));
-            writer.write(username + " ," + password + " ," + email);
+            writer.write(username + "," + password + "," + email);
             writer.newLine();
             writer.close();
         } catch (IOException e) {
