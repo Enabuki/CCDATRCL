@@ -103,23 +103,22 @@ public class GUIMain extends JFrame {
     }
 
     private void openPesoSaveSupport() {
-        SwingUtilities.invokeLater(() -> {
-            new PesoSaveSupport().setLocationRelativeTo(null);
-        });
+    	PesoSaveSupport pesoSaveSupport = new PesoSaveSupport();
+        pesoSaveSupport.setVisible(true);
+        dispose();
     }
 
     private void openExpensesIncomesTracker() {
         SwingUtilities.invokeLater(() -> {
             new ExpensesIncomesTracker().setLocationRelativeTo(null);
+            
         });
     }
 
     private void openPesoSaveLogin() {
-    	SwingUtilities.invokeLater(() -> {
-            new PesoSaveLogin().setLocationRelativeTo(null);
-    	});
+    	PesoSaveLogin pesoSaveLogin = new PesoSaveLogin();
+    	pesoSaveLogin.setVisible(true);
+    	dispose();
     }
-        // Implement the logic to open the login window.
-    
 }
 
