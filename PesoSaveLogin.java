@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -67,7 +66,6 @@ public class PesoSaveLogin extends JFrame {
         passwordField.setColumns(10);
         contentPane.add(passwordField);
         
-        
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 int confirmed = JOptionPane.showConfirmDialog(
@@ -79,15 +77,10 @@ public class PesoSaveLogin extends JFrame {
                 if (confirmed == JOptionPane.YES_OPTION) {
                     dispose(); // Close the window and exit the application.
                 } else {
-                	 setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                 }
-                
             }
         });
-        
-      
-               
-        
 
         btnLogin = new JButton(""); 
         btnLogin.setOpaque(false);
@@ -101,17 +94,14 @@ public class PesoSaveLogin extends JFrame {
                 String usernameOrEmail = usernameOrEmailField.getText();
                 String password = new String(passwordField.getPassword());
 
-              
-                    // If the email is valid, proceed to authenticate the user
-                    if (authenticateUser(usernameOrEmail, password)) {
-                        openGUIMain();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                if (authenticateUser(usernameOrEmail, password)) {
+                    openGUIMain();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or password. Please try again.", "Login Error", JOptionPane.ERROR_MESSAGE);
                 }
-            
+            }
         });
-        
+
         lblPesoSaveLogin = new JLabel("");
         lblPesoSaveLogin.setIcon(new ImageIcon("D:\\Users\\63916\\Downloads\\PesoSaveLogin.png"));
         lblPesoSaveLogin.setBounds(0, 0, 1280, 770);
@@ -134,7 +124,7 @@ public class PesoSaveLogin extends JFrame {
                 }
             }
         });
-        
+
         lblCreateAccount.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 openRegistrationForm();
@@ -177,3 +167,4 @@ public class PesoSaveLogin extends JFrame {
         this.dispose();
     }
 }
+
