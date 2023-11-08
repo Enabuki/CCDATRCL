@@ -5,7 +5,7 @@ import java.awt.*;
 
 // ExpenseIncomeEntry class remains unchanged from your provided code
 
-public class ExpensesIncomesTracker extends GUIMain {
+public class ExpensesIncomesTracker extends JFrame {
 
     private final ExpenseIncomeTableModel tableModel;
     private final JTable table;
